@@ -11,20 +11,18 @@ export default async function register() {
 }
 
 export async function registerPost() {
-  const { username, password, repeatPassword } = this.params;
-  if (password !== repeatPassword) {
-    alert('Passwords don`t match!');
-    return;
-  }
-  if (username.length < 3) {
-    alert('Username must be atleast 3 charachterss long!!');
-    return;
-  }
-  if (password.length < 6) {
-    alert('Password must be atleast 6 charachters long!!');
-    return;
-  }
   try {
+    const { username, password, repeatPassword } = this.params;
+    if (password !== repeatPassword) {
+      throw new Error('Passwords don`t match!');
+    }
+    if (username.length < 3) {
+      throw new Error('Username must be atleast 3 charachterss long!!');
+    }
+    if (password.length < 6) {
+      throw new Error('Password must be atleast 6 charachters long!!');
+    }
+
     const result = await data.register(username, password);
     console.log(result);
     if (result.hasOwnProperty('errorData')) {
@@ -36,6 +34,6 @@ export async function registerPost() {
     this.redirect('#/login');
   } catch (error) {
     console.error(error);
-    showError(err.message);
+    showError(error.message);
   }
 }

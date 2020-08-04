@@ -1,20 +1,28 @@
 {{> header}}
 <div id="cinema">
+    {{#if myMovies}}
+    <h1>My Movies</h1>
+    {{else}}
     <h1>All Movies</h1>
+    {{/if}}
     <form action="" method="GET">
         <label>Search genre:</label>
         <input type="text" name="search" />
         <input type="submit" value="Search" />
     </form>
     <div class="movies">
-        <div class="movie">
-            <h2>Title: Us (2019)</h2>
-            <img
-                src="https://m.media-amazon.com/images/M/MV5BZTliNWJhM2YtNDc1MC00YTk1LWE2MGYtZmE4M2Y5ODdlNzQzXkEyXkFqcGdeQXVyMzY0MTE3NzU@._V1_UX140_CR0,0,140,209_AL_.jpg" />
-            <p>Available Tickets: 50</p>
-            <button><a href="#">Buy Ticket</a></button>
-            <button><a href="#/details">Details</a></button>
-        </div>
+        {{#if myMovies}}
+
+        {{#each movies}}
+        {{> ownMovie}}
+        {{/each}}
+
+        {{else}}
+        {{#each movies}}
+        {{> movie}}
+        {{/each}}
+
+        {{/if}}
     </div>
 </div>
 {{> footer}}

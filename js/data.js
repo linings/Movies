@@ -1,4 +1,4 @@
-import { beginRequest, endRequest } from '../js/notification.js';
+import { beginRequest, endRequest, showInfo } from '../js/notification.js';
 function host(endpoint) {
   return `https://api.backendless.com/3B6BF28C-FF60-DD2D-FF98-357BA2908E00/B3745741-2DA0-4DEF-B21F-D803A9ACC5A1/${endpoint}`;
 }
@@ -104,7 +104,6 @@ async function getMovieById(id) {
   return result;
 }
 //create movie
-
 async function createMovie(movie) {
   beginRequest();
 
@@ -143,7 +142,7 @@ async function updateMovie(id, updatedProps) {
   ).json();
 
   endRequest();
-  return resultk;
+  return result;
 }
 
 async function deleteMovie(id) {
@@ -163,10 +162,11 @@ async function deleteMovie(id) {
   return result;
 }
 //delete movie
-async function getMoviesByOwner(ownerId) {
+async function getMoviesByOwner() {
   beginRequest();
 
   const token = localStorage.getItem('userToken');
+  const ownerId = localStorage.getItem('userId');
 
   const result = (
     await fetch(host(endpoints.MOVIES + `?where=ownerId%3D%27${ownerId}%27`), {
@@ -190,5 +190,16 @@ async function buyTicket(movie) {
 }
 //buy ticket
 
-const data = { register, login, logout };
+const data = {
+  register,
+  login,
+  logout,
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  getMoviesByOwner,
+  buyTicket,
+};
 export default data;

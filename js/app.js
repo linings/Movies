@@ -3,15 +3,23 @@ import home from './controllers/home.js';
 import register, { registerPost } from './controllers/register.js';
 import login, { loginPost } from './controllers/login.js';
 import logout from './controllers/logout.js';
-import catalog, { create, details, edit } from './controllers/movies.js';
+import catalog, {
+  create,
+  details,
+  edit,
+  createPost,
+  buyTicket,
+  getMoviesByOwner,
+} from './controllers/movies.js';
 
 window.addEventListener('load', () => {
   const app = Sammy('#container', function () {
     this.use('Handlebars', 'hbs');
 
     this.userData = {
-      username: '',
-      userId: '',
+      username: localStorage.getItem('username') || '',
+      userId: localStorage.getItem('userId') || '',
+      movies: [],
     };
 
     this.get('/', home);
@@ -30,6 +38,8 @@ window.addEventListener('load', () => {
 
     this.get('#/edit/:id', edit);
 
+    // this.get('#/delete/:id', delete);
+
     this.get('#/logout', logout);
 
     this.post('#/register', (ctx) => {
@@ -39,6 +49,13 @@ window.addEventListener('load', () => {
     this.post('#/login', (ctx) => {
       loginPost.call(ctx);
     });
+
+    this.post('#/create', (ctx) => {
+      createPost.call(ctx);
+    });
+    this.get('#/buy/:id', buyTicket);
+
+    this.get('#/my_movies', getMoviesByOwner);
   });
 
   app.run();
