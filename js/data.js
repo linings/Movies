@@ -150,13 +150,15 @@ async function deleteMovie(id) {
 
   const token = localStorage.getItem('userToken');
 
-  const result = fetch(host(endpoints.MOVIE_BY_ID + id), {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'user-token': token,
-    },
-  }).json();
+  const result = (
+    await fetch(host(endpoints.MOVIE_BY_ID + id), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-token': token,
+      },
+    })
+  ).json();
 
   endRequest();
   return result;

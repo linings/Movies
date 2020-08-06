@@ -170,3 +170,26 @@ export async function buyTicket() {
     showError(error.message);
   }
 }
+export async function deleteMovie() {
+  if (confirm(`Are you sure you want to delete this movie?`) == false) {
+    return this.redirect('#/my_movies');
+  }
+
+  const movieId = this.params.id;
+
+  try {
+    const result = await data.deleteMovie(movieId);
+
+    if (result.hasOwnProperty('errorData')) {
+      const error = new Error();
+      Object.assign(error, result);
+      throw error;
+    }
+
+    showInfo(`Successfully deleted movie`);
+    this.redirect('#/my_movies');
+  } catch (error) {
+    console.error(error);
+    showError(error.message);
+  }
+}
