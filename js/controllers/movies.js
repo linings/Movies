@@ -8,6 +8,8 @@ export default async function catalog() {
     footer: await this.load('./templates/common/footer.hbs'),
   };
 
+  console.log(this.params);
+
   const movies = await data.getAllMovies();
   this.app.userData.movies = movies;
   const context = Object.assign(
