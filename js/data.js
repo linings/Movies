@@ -1,4 +1,4 @@
-import { beginRequest, endRequest, showInfo } from '../js/notification.js';
+import { beginRequest, endRequest } from '../js/notification.js';
 function host(endpoint) {
   return `https://api.backendless.com/3B6BF28C-FF60-DD2D-FF98-357BA2908E00/B3745741-2DA0-4DEF-B21F-D803A9ACC5A1/${endpoint}`;
 }
@@ -186,7 +186,7 @@ async function buyTicket(movie) {
   const newTickets = movie.tickets - 1;
   const movieId = movie.objectId;
 
-  return updateMovie(movieId, { tickets: newTickets });
+  return await updateMovie(movieId, { tickets: newTickets });
 }
 //buy ticket
 

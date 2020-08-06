@@ -10,6 +10,7 @@ import catalog, {
   createPost,
   buyTicket,
   getMoviesByOwner,
+  editPost
 } from './controllers/movies.js';
 
 window.addEventListener('load', () => {
@@ -56,6 +57,10 @@ window.addEventListener('load', () => {
     this.get('#/buy/:id', buyTicket);
 
     this.get('#/my_movies', getMoviesByOwner);
+
+    this.post('#/edit/:id', (ctx) => {
+      editPost.call(ctx);
+    });
   });
 
   app.run();
