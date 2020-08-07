@@ -40,7 +40,15 @@ export default class API {
     this.beginRequest();
     const result = await (
       await fetch(this.host(endpoint), this.getOptions())
-    ).json();
+    ).json(); // should make it to JSON format!
+    this.endRequest();
+
+    return result;
+  }
+
+  async getLogout(endpoint) {
+    this.beginRequest();
+    const result = await await fetch(this.host(endpoint), this.getOptions());
     this.endRequest();
 
     return result;
@@ -105,10 +113,12 @@ export default class API {
   }
 
   async logout() {
-    const result = await this.get(this.endpoints.LOGOUT);
+    const result = await this.getLogout(this.endpoints.LOGOUT);
+
     localStorage.removeItem('userToken');
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
+
     return result;
   }
 }
