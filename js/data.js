@@ -1,5 +1,5 @@
 import { beginRequest, endRequest } from '../js/notification.js';
-import API from './api.js';
+import API from './controllers/api.js';
 
 const endpoints = {
   MOVIES: 'data/movies',
@@ -13,9 +13,9 @@ const api = new API(
   endRequest
 );
 
-export const login = api.login.bind(api);
-export const register = api.register.bind(api);
-export const logout = api.logout.bind(api);
+const login = api.login.bind(api);
+const register = api.register.bind(api);
+const logout = api.logout.bind(api);
 
 //get all movies
 async function getAllMovies() {
@@ -42,7 +42,7 @@ async function deleteMovie(id) {
 //delete movie
 async function getMoviesByOwner() {
   const ownerId = localStorage.getItem('userId');
-  api.get(endpoints.MOVIES + `?where=ownerId%3D%27${ownerId}%27`);
+  return api.get(endpoints.MOVIES + `?where=ownerId%3D%27${ownerId}%27`);
 }
 //get movies by userID
 async function buyTicket(movie) {
@@ -65,4 +65,5 @@ const data = {
   getMoviesByOwner,
   buyTicket,
 };
+
 export default data;

@@ -38,7 +38,9 @@ export default class API {
 
   async get(endpoint) {
     this.beginRequest();
-    const result = await fetch(this.host(endpoint), this.getOptions());
+    const result = await (
+      await fetch(this.host(endpoint), this.getOptions())
+    ).json();
     this.endRequest();
 
     return result;
@@ -74,7 +76,6 @@ export default class API {
     const options = this.getOptions();
 
     options.method = 'DELETE';
-    options.body = JSON.stringify(body);
 
     this.beginRequest();
     const result = (await fetch(this.host(endpoint), options)).json();
@@ -92,7 +93,7 @@ export default class API {
 
   async login(username, password) {
     const result = await this.post(this.endpoints.LOGIN, {
-      username,
+      login: username,
       password,
     });
 
@@ -104,7 +105,10 @@ export default class API {
   }
 
   async logout() {
+    const result = await this.get(this.endpoints.LOGOUT);
     localStorage.removeItem('userToken');
-    return this.get(this.endpoints.LOGOUT);
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    return result;
   }
 }
