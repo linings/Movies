@@ -6,12 +6,12 @@ export default async function catalog() {
     header: await this.load('./templates/common/header.hbs'),
     movie: await this.load('./templates/movie/movie.hbs'),
     footer: await this.load('./templates/common/footer.hbs'),
+    controls: await this.load('./templates/movie/movieControl.hbs'),
   };
-
-  console.log(this.params);
 
   const movies = await data.getAllMovies();
   this.app.userData.movies = movies;
+
   const context = Object.assign(
     { origin: encodeURIComponent('#/catalog') },
     this.app.userData
@@ -23,9 +23,10 @@ export default async function catalog() {
 export async function getMoviesByOwner() {
   this.partials = {
     header: await this.load('./templates/common/header.hbs'),
-    // movie: await this.load('./templates/common/movie.hbs'),
-    ownMovie: await this.load('./templates/movie/ownMovie.hbs'),
+    movie: await this.load('./templates/movie/movie.hbs'),
     footer: await this.load('./templates/common/footer.hbs'),
+    controls: await this.load('./templates/movie/ownMovieControls.hbs'),
+    movieControl: await this.load('./templates/movie/movieControl.hbs'),
   };
 
   const movies = await data.getMoviesByOwner();

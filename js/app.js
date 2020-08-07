@@ -42,6 +42,8 @@ window.addEventListener('load', () => {
 
     this.get('#/logout', logout);
 
+    this.get('#/buy/:id', buyTicket);
+
     this.post('#/register', (ctx) => {
       registerPost.call(ctx);
     });

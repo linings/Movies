@@ -1,4 +1,4 @@
-import data from '../data.js';
+import { login } from '../data.js';
 import { showError, showInfo } from '../notification.js';
 
 export default async function login() {
@@ -13,7 +13,7 @@ export default async function login() {
 export async function loginPost() {
   const { username, password } = this.params;
   try {
-    const result = await data.login(username, password);
+    const result = await login(username, password);
 
     if (result.hasOwnProperty('errorData')) {
       const error = new Error();
